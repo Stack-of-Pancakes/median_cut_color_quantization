@@ -1,5 +1,5 @@
 
-# Created by https://www.gitignore.io/api/git,python,windows,virtualenv,sublimetext
+# Created by https://www.gitignore.io/api/visualstudiocode,git,python,windows,virtualenv,sublimetext
 
 ### Git ###
 *.orig
@@ -30,6 +30,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -47,15 +48,20 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
-.pytest_cache/
 nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+.pytest_cache/
 
 # Translations
 *.mo
 *.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
 
 # Flask stuff:
 instance/
@@ -77,7 +83,7 @@ target/
 .python-version
 
 # celery beat schedule file
-celerybeat-schedule.*
+celerybeat-schedule
 
 # SageMath parsed files
 *.sage.py
@@ -104,20 +110,23 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+### Python Patch ###
+.venv/
+
 ### SublimeText ###
-# cache files for sublime text
+# Cache files for Sublime Text
 *.tmlanguage.cache
 *.tmPreferences.cache
 *.stTheme.cache
 
-# workspace files are user-specific
+# Workspace files are user-specific
 *.sublime-workspace
 
-# project files should be checked into the repository, unless a significant
-# proportion of contributors will probably not be using SublimeText
+# Project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using Sublime Text
 # *.sublime-project
 
-# sftp configuration file
+# SFTP configuration file
 sftp-config.json
 
 # Package control specific files
@@ -150,14 +159,24 @@ GitHub.sublime-settings
 pyvenv.cfg
 pip-selfcheck.json
 
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db
 
+# Dump file
+*.stackdump
+
 # Folder config file
-Desktop.ini
+[Dd]esktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
@@ -165,6 +184,7 @@ $RECYCLE.BIN/
 # Windows Installer files
 *.cab
 *.msi
+*.msix
 *.msm
 *.msp
 
@@ -172,4 +192,4 @@ $RECYCLE.BIN/
 *.lnk
 
 
-# End of https://www.gitignore.io/api/git,python,windows,virtualenv,sublimetext
+# End of https://www.gitignore.io/api/visualstudiocode,git,python,windows,virtualenv,sublimetext
