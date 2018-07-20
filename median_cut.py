@@ -65,9 +65,41 @@ def show_median_cut(cuts):
     palette.show()
 
 
+def merge_palette(img, palette):
+    # Do not convert color_width to int.  When placing colors side by side on an image
+    # that doesn't have a width divisible by the number of palette colors there will be
+    # extra columns of background color.  This is avoided by adding width over and over
+    # and converting to int when specifying the X coordinate.  Causing some colors to be
+    # 1px wider than others
+    color_width = img.width / len(palette)
+    color_height = int(max(100, color_width))
+    color_size = (int(color_width), color_height)
+    color_x = 0
+    color_y = img.height
+
+    # Create a new image to paste the original in and all the colors of the palette
+    merged = Image.new('RGB', (img.width, img.height + color_height))
+    # Add in the original image
+    merged.paste(img)
+    # Create a square of each color and insert each, side-by-side, into the palette
+    for color in palette:
+        color = Image.new('RGB', color_size, color)
+        merged.paste(color, (int(color_x), color_y))
+        color_x += color_width
+
+    return merged
+
+
 my_image = Image.open('input/cogs.jpg')
+# Create duplicate image that will have median cut palettes merged into it
+merged = my_image.copy()
 
 # Create two palettes.  One with true median cut and the other with unique colors.
 median_non_unique = median_cut(my_image, 8)
 median_unique = median_cut(my_image, 8, unique=True)
 
+# Merge median cut palettes into image and show
+merged = merge_palette(merged, median_non_unique)
+merged = merge_palette(merged, median_unique)
+
+merged.show()
