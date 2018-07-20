@@ -1,5 +1,10 @@
 from statistics import mean
 from PIL import Image
+import logging
+import sys
+
+
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
 
 class ColorCube(object):
@@ -15,6 +20,7 @@ class ColorCube(object):
         self.max_channel = self.size.index(self.max_range)
 
     def average(self):
+        logging.info('Averaging cube with {} colors'.format(len(self.colors)))
         r = int(mean(self.red))
         g = int(mean(self.green))
         b = int(mean(self.blue))
@@ -39,14 +45,19 @@ def median_cut(img, num_colors, unique=False):
     # unique = True:  [(0,0,255),(255,0,0)]
     # False would produce 2 almost identical shades of blue, True would result in pure blue/red
     colors = []
+    logging.info('Creating list of colors')
     for color_count, color in img.getcolors(img.width * img.height):
         if unique:
             colors += [color]
         else:
             colors += [color] * color_count
+    logging.info('Created list of {} colors'.format(len(colors)))
+    logging.info('Creating ColorCube')
     cubes = [ColorCube(colors)]
+    logging.info('ColorCube created')
 
     while len(cubes) < num_colors:
+        logging.info('Performing split {}/{}'.format(len(cubes), num_colors - 1))
         cubes.sort()
         cubes += cubes.pop().split()
 
